@@ -37,12 +37,6 @@ class GUI:
         if self.state == 'idle':
             self.button.start_blink()
             self.master.after(1000, self.watch_startbutton)
-            
-            self.greet_button = Button(self.frame, text="Start photoshoot", command=self.start_photoshoot)
-            self.greet_button.grid(row=0, column=0)
-
-            self.close_button = Button(self.frame, text="Close", command=self.master.quit)
-            self.close_button.grid(row=0, column=1)
 
             self.photos = {}
 
