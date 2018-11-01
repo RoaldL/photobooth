@@ -36,6 +36,7 @@ class GUI:
 
         if self.state == 'idle':
             self.button.start_blink()
+            self.master.after(1000, self.watch_startbutton)
             
             self.greet_button = Button(self.frame, text="Start photoshoot", command=self.start_photoshoot)
             self.greet_button.grid(row=0, column=0)
@@ -56,7 +57,6 @@ class GUI:
                 else:
                     self.photos[idx].grid(row=2, column=idx-3)
 
-
         if self.state == 'countdown':
             self.button.stop_blink()
 
@@ -75,6 +75,13 @@ class GUI:
             self.reaction.pack()
 
             self.master.after(3000, self.wait_for_camera)
+            
+    def watch_startbutton(self):
+        if not self.button.get_status():
+            self.state = 'countdown'
+            self.render()
+        else:
+            self.master.after(10, self.watch_startbutton)
 
     def start_photoshoot(self):
         self.shoot_number = 0
@@ -82,7 +89,7 @@ class GUI:
         self.render()
 
     def photoshoot(self):
-        if self.countdown_label.idx == (len(self.countdown_label.frames) - 10):
+        if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
             self.camera.get_picture()
             self.shoot_number = self.shoot_number + 1
         

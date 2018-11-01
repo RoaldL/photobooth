@@ -9,7 +9,7 @@ from tkinter import Tk
 if __name__ == "__main__":
 
     # Setup
-    path = os.path.join(os.sep, 'home', 'roald', 'projects', 'photobooth', 'images')
+    path = os.path.join(os.sep, 'home', 'pi', 'projects', 'photobooth', 'images')
     camera = CameraController(path)
     button = ArcadeButton()
 
