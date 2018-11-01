@@ -1,5 +1,6 @@
-from photobooth.camera import Canon100mController, StubController
+from photobooth.camera import CameraController
 from photobooth.gui import GUI
+from photobooth.button import ArcadeButton
 
 import os
 import sys
@@ -9,14 +10,15 @@ if __name__ == "__main__":
 
     # Setup
     path = os.path.join(os.sep, 'home', 'roald', 'projects', 'photobooth', 'images')
-    camera_controller = Canon100mController(path)
+    camera = CameraController(path)
+    button = ArcadeButton()
 
     # Run
     root = Tk()
     root.attributes('-fullscreen', True)
     root.bind('<Escape>',lambda e: root.destroy())
 
-    my_gui = GUI(root, camera_controller)
+    my_gui = GUI(root, camera, button)
     root.mainloop()
     
     

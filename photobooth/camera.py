@@ -7,32 +7,6 @@ from os.path import isfile, join
 
 class CameraController:
 
-    def get_picture(self):
-        pass
-
-    def get_preview(self):
-        pass
-
-    def wait_for_camera(self):
-        pass
-
-class StubController(CameraController):
-
-    def __init__(self, dir):
-        print('Initialise cameracontroller')
-    
-    def get_picture(self):
-        print('Get picture')
-
-    def get_preview(self):
-        print('Get preview')
-
-    def wait_for_camera(self):
-        print('Wait for camera')
-
-
-class Canon100mController(CameraController):
-
     def __init__(self, mypath):
         print('init')
         self._dir = mypath

@@ -4,11 +4,13 @@ from PIL import Image, ImageTk
 import os
 import itertools
 import random
+import time
 
 class GUI:
-    def __init__(self, master, camera_controller):
+    def __init__(self, master, camera_controller, button_controller):
         self.master = master
         self.camera = camera_controller
+        self.button = button_controller
 
         master.title("A simple GUI")
 
@@ -33,6 +35,8 @@ class GUI:
         self.frame.grid()
 
         if self.state == 'idle':
+            self.button.start_blink()
+            
             self.greet_button = Button(self.frame, text="Start photoshoot", command=self.start_photoshoot)
             self.greet_button.grid(row=0, column=0)
 
@@ -52,7 +56,10 @@ class GUI:
                 else:
                     self.photos[idx].grid(row=2, column=idx-3)
 
+
         if self.state == 'countdown':
+            self.button.stop_blink()
+
             self.countdown_label = GIF(self.frame, 'gif/countdown/countdown.gif', 200)
             self.countdown_label.pack()            
             self.photoshoot()
