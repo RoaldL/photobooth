@@ -40,16 +40,16 @@ class GUI:
 
             self.photos = {}
 
-            for idx, picture in enumerate(self.camera.pictures[-6:]):
+            for idx, picture in enumerate(self.camera.pictures[-4:]):
                 image = Image.open(picture)
-                image.thumbnail([500, 500], Image.ANTIALIAS)
+                image.thumbnail([300, 300], Image.ANTIALIAS)
                 photo = ImageTk.PhotoImage(image)
                 self.photos[idx] = Label(self.frame, image=photo)
                 self.photos[idx].image = photo # keep a reference!
-                if idx <=2:
+                if idx <=1:
                     self.photos[idx].grid(row=1, column=idx)
                 else:
-                    self.photos[idx].grid(row=2, column=idx-3)
+                    self.photos[idx].grid(row=2, column=idx-2)
 
         if self.state == 'countdown':
             self.button.stop_blink()
