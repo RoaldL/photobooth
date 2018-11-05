@@ -42,7 +42,7 @@ class GUI:
 
             for idx, picture in enumerate(self.camera.pictures[-4:]):
                 image = Image.open(picture)
-                image.thumbnail([300, 300], Image.ANTIALIAS)
+                image.thumbnail([355, 355], Image.ANTIALIAS)
                 photo = ImageTk.PhotoImage(image)
                 self.photos[idx] = Label(self.frame, image=photo)
                 self.photos[idx].image = photo # keep a reference!
@@ -65,7 +65,7 @@ class GUI:
 
             funny_gifs_path = os.path.join('gif', 'funny')
             funny_gifs = [os.path.join(funny_gifs_path, f) for f in os.listdir(funny_gifs_path) if os.path.isfile(os.path.join(funny_gifs_path, f))]
-            self.reaction = GIF(self.frame, random.choice(funny_gifs), 100)
+            self.reaction = GIF(self.frame, random.choice(funny_gifs), 150)
             self.reaction.pack()
 
             self.master.after(3000, self.wait_for_camera)
