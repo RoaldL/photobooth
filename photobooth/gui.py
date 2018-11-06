@@ -7,7 +7,7 @@ import random
 import time
 
 class GUI:
-    def __init__(self, master, camera_controller, button_controller, hue_controller, flash=False):
+    def __init__(self, master, root, camera_controller, button_controller, hue_controller, flash=False):
         self.master = master
         self.camera = camera_controller
         self.button = button_controller
@@ -23,6 +23,8 @@ class GUI:
 
         self.shoot_number = 0
         self.state = 'idle'
+        
+        self.root = root
 
         self.render()
 
@@ -57,7 +59,8 @@ class GUI:
         if self.state == 'countdown':
             self.button.stop_blink()
             self.hue.set_for_photo()
-            self.countdown_label = GIF(self.frame, 'gif/countdown/countdown.gif', 200)
+
+            self.countdown_label = GIF(self.frame, os.path.join(self.root, 'gif/countdown/countdown.gif'), 200)
             self.countdown_label.pack()            
             self.photoshoot()
 
@@ -66,7 +69,7 @@ class GUI:
 
         if self.state == 'wait':
 
-            funny_gifs_path = os.path.join('gif', 'funny')
+            funny_gifs_path = os.path.join(self.root, 'gif', 'funny')
             funny_gifs = [os.path.join(funny_gifs_path, f) for f in os.listdir(funny_gifs_path) if os.path.isfile(os.path.join(funny_gifs_path, f))]
             self.reaction = GIF(self.frame, random.choice(funny_gifs), 150)
             self.reaction.pack()
