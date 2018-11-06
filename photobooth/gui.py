@@ -7,10 +7,12 @@ import random
 import time
 
 class GUI:
-    def __init__(self, master, root, camera_controller, button_controller):
+    def __init__(self, master, root, camera_controller, button_controller, hue_controller, flash=False):
         self.master = master
         self.camera = camera_controller
         self.button = button_controller
+        self.hue = hue_controller
+        self.flash = flash
 
         master.title("A simple GUI")
 
@@ -38,6 +40,7 @@ class GUI:
 
         if self.state == 'idle':
             self.button.start_blink()
+            self.hue.set_for_wait()
             self.master.after(1000, self.watch_startbutton)
 
             self.photos = {}
@@ -55,6 +58,7 @@ class GUI:
 
         if self.state == 'countdown':
             self.button.stop_blink()
+            self.hue.set_for_photo()
 
             self.countdown_label = GIF(self.frame, os.path.join(self.root, 'gif/countdown/countdown.gif'), 200)
             self.countdown_label.pack()            
@@ -85,7 +89,11 @@ class GUI:
         self.render()
 
     def photoshoot(self):
-        if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
+        if self.flash == False and self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
+            self.camera.get_picture()
+            self.shoot_number = self.shoot_number + 1
+
+        if self.flash == True and self.countdown_label.idx == (len(self.countdown_label.frames) - 15):
             self.camera.get_picture()
             self.shoot_number = self.shoot_number + 1
         

@@ -1,6 +1,7 @@
 from photobooth.camera import CameraController
 from photobooth.gui import GUI
 from photobooth.button import ArcadeButton
+from photobooth.hue import HueController
 
 import os
 import sys
@@ -14,13 +15,14 @@ if __name__ == "__main__":
     
     camera = CameraController(path)
     button = ArcadeButton()
+    hue = HueController()
 
     # Run
     gui = Tk()
     gui.attributes('-fullscreen', True)
     gui.bind('<Escape>',lambda e: gui.destroy())
 
-    my_gui = GUI(gui, root, camera, button)
-    gui.mainloop()
+    my_gui = GUI(root, root, camera, button, hue, True)
+    root.mainloop()
     
     
