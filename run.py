@@ -9,16 +9,18 @@ from tkinter import Tk
 if __name__ == "__main__":
 
     # Setup
-    path = os.path.join(os.sep, 'home', 'pi', 'projects', 'photobooth', 'images')
+    root = os.path.join(os.sep, 'home', 'pi', 'projects', 'photobooth')
+    path = os.path.join(root, 'images')
+    
     camera = CameraController(path)
     button = ArcadeButton()
 
     # Run
-    root = Tk()
-    root.attributes('-fullscreen', True)
-    root.bind('<Escape>',lambda e: root.destroy())
+    gui = Tk()
+    gui.attributes('-fullscreen', True)
+    gui.bind('<Escape>',lambda e: gui.destroy())
 
-    my_gui = GUI(root, camera, button)
-    root.mainloop()
+    my_gui = GUI(gui, root, camera, button)
+    gui.mainloop()
     
     
