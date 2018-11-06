@@ -22,7 +22,7 @@ if __name__ == "__main__":
     gui.attributes('-fullscreen', True)
     gui.bind('<Escape>',lambda e: gui.destroy())
 
-    my_gui = GUI(root, root, camera, button, hue, True)
-    root.mainloop()
+    my_gui = GUI(gui, root, camera, button, hue, True)
+    gui.mainloop()
     
     
