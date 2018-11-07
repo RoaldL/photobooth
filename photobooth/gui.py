@@ -40,7 +40,7 @@ class GUI:
 
         if self.state == 'idle':
             self.button.start_blink()
-            self.hue.set_for_wait()
+            self.set_discolights()
             self.master.after(1000, self.watch_startbutton)
 
             self.photos = {}
@@ -82,6 +82,11 @@ class GUI:
             self.render()
         else:
             self.master.after(10, self.watch_startbutton)
+
+    def set_discolights(self):
+        if not self.state == 'countdown':
+            self.hue.set_for_wait()
+            self.master.after(1000, self.set_discolights)
 
     def start_photoshoot(self):
         self.shoot_number = 0
