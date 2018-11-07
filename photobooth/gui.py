@@ -60,7 +60,7 @@ class GUI:
             self.button.stop_blink()
             self.hue.start_blink()
 
-            self.countdown_label = GIF(self.frame, os.path.join(self.root, 'gif/countdown/countdown.gif'), 200)
+            self.countdown_label = GIF(self.frame, os.path.join(self.root, 'gif/countdown/countdown.gif'), 400)
             self.countdown_label.pack()
             self.photoshoot()
 
@@ -93,15 +93,19 @@ class GUI:
             if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
                 self.camera.get_picture()
                 self.shoot_number = self.shoot_number + 1
-            if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
-                # self.hue.set_on()
+            if self.countdown_label.idx == (len(self.countdown_label.frames) - 10):
+                self.hue.stop_blink()
+            if self.countdown_label.idx == (len(self.countdown_label.frames) - 8):
+                self.hue.set_on()
 
         if self.flash == True:
             if self.countdown_label.idx == (len(self.countdown_label.frames) - 15):
                 self.camera.get_picture()
                 self.shoot_number = self.shoot_number + 1
+            if self.countdown_label.idx == (len(self.countdown_label.frames) - 5):
+                self.hue.stop_blink()
             if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
-                # self.hue.set_on()
+                self.hue.set_on()
 
         if self.countdown_label.idx == (len(self.countdown_label.frames) - 1):
             self.state = 'black'

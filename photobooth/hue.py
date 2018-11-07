@@ -19,17 +19,14 @@ class HueController:
 
     def set_off(self):
         self.stop_blink()
-        for light in self.lights:
-            light.on = False
-
+        self.bridge.set_group(1, 'on', False)
         self.state = 'off'
 
     def set_on(self):
         self.stop_blink()
-        for light in self.lights:
-            light.on = True
-            light.brightness = 254#254
-            light.xy = [0.4578, 0.41]
+        self.bridge.set_group(1, 'on', True)
+        self.bridge.set_group(1, 'xy', [0.4578, 0.41])
+        self.bridge.set_group(1, 'brightness', 254)
 
         self.state = 'photo'
 
@@ -44,12 +41,11 @@ class HueController:
         print('blinkieblinkie')
         while(self.keep_blinking):
             for light in self.lights:
-                light.transitiontime = 1
-                light.brightness = 254
                 if self.on_off_toggle:
                     light.on = True
+                    light.xy = [random.random(),random.random()]
                 else:
                     light.on = False
                 self.on_off_toggle = not self.on_off_toggle
-
-                light.xy = [random.random(),random.random()]
+                if not self.keep_blinking:
+                    break
