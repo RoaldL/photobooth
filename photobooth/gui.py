@@ -23,18 +23,18 @@ class GUI:
 
         self.shoot_number = 0
         self.state = 'idle'
-        
+
         self.root = root
 
         self.render()
 
     def render(self):
-        
+
         try:
             self.frame.destroy()
         except:
             pass
-        
+
         self.frame=Frame(self.master)
         self.frame.grid()
 
@@ -61,7 +61,7 @@ class GUI:
             self.hue.start_blink()
 
             self.countdown_label = GIF(self.frame, os.path.join(self.root, 'gif/countdown/countdown.gif'), 200)
-            self.countdown_label.pack()            
+            self.countdown_label.pack()
             self.photoshoot()
 
         if self.state == 'black':
@@ -75,7 +75,7 @@ class GUI:
             self.reaction.pack()
 
             self.master.after(3000, self.wait_for_camera)
-            
+
     def watch_startbutton(self):
         if not self.button.get_status():
             self.state = 'countdown'
@@ -85,7 +85,7 @@ class GUI:
 
     def start_photoshoot(self):
         self.shoot_number = 0
-        self.state = 'countdown'        
+        self.state = 'countdown'
         self.render()
 
     def photoshoot(self):
@@ -94,20 +94,20 @@ class GUI:
                 self.camera.get_picture()
                 self.shoot_number = self.shoot_number + 1
             if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
-                self.hue.set_on()
+                # self.hue.set_on()
 
         if self.flash == True:
             if self.countdown_label.idx == (len(self.countdown_label.frames) - 15):
                 self.camera.get_picture()
                 self.shoot_number = self.shoot_number + 1
             if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
-                self.hue.set_on()
-        
-        if self.countdown_label.idx == (len(self.countdown_label.frames) - 1):  
+                # self.hue.set_on()
+
+        if self.countdown_label.idx == (len(self.countdown_label.frames) - 1):
             self.state = 'black'
             self.render()
             return
-        
+
         self.master.after(200, self.photoshoot)
 
     def funny_gif(self):
@@ -118,7 +118,7 @@ class GUI:
         self.camera.wait_for_camera()
 
         if self.shoot_number < 1:
-            self.state = 'countdown' 
+            self.state = 'countdown'
         else:
             self.state = 'idle'
 
@@ -160,4 +160,4 @@ class GIF(Label):
         self.idx += 1
         if self.idx == len(self.frames):
             self.idx = 0
-        self.cancel = self.after(self.delay, self.play)  
+        self.cancel = self.after(self.delay, self.play)
