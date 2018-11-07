@@ -40,7 +40,7 @@ class GUI:
 
         if self.state == 'idle':
             self.button.start_blink()
-            self.set_discolights()
+            self.hue.set_off()
             self.master.after(1000, self.watch_startbutton)
 
             self.photos = {}
@@ -58,7 +58,7 @@ class GUI:
 
         if self.state == 'countdown':
             self.button.stop_blink()
-            self.hue.set_for_photo()
+            self.hue.start_blink()
 
             self.countdown_label = GIF(self.frame, os.path.join(self.root, 'gif/countdown/countdown.gif'), 200)
             self.countdown_label.pack()            
@@ -68,7 +68,7 @@ class GUI:
             self.master.after(2000, self.funny_gif)
 
         if self.state == 'wait':
-
+            self.hue.set_off()
             funny_gifs_path = os.path.join(self.root, 'gif', 'funny')
             funny_gifs = [os.path.join(funny_gifs_path, f) for f in os.listdir(funny_gifs_path) if os.path.isfile(os.path.join(funny_gifs_path, f))]
             self.reaction = GIF(self.frame, random.choice(funny_gifs), 150)
@@ -83,24 +83,25 @@ class GUI:
         else:
             self.master.after(10, self.watch_startbutton)
 
-    def set_discolights(self):
-        if not self.state == 'countdown':
-            self.hue.set_for_wait()
-            self.master.after(1000, self.set_discolights)
-
     def start_photoshoot(self):
         self.shoot_number = 0
         self.state = 'countdown'        
         self.render()
 
     def photoshoot(self):
-        if self.flash == False and self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
-            self.camera.get_picture()
-            self.shoot_number = self.shoot_number + 1
+        if self.flash == False:
+            if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
+                self.camera.get_picture()
+                self.shoot_number = self.shoot_number + 1
+            if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
+                self.hue.set_on()
 
-        if self.flash == True and self.countdown_label.idx == (len(self.countdown_label.frames) - 15):
-            self.camera.get_picture()
-            self.shoot_number = self.shoot_number + 1
+        if self.flash == True:
+            if self.countdown_label.idx == (len(self.countdown_label.frames) - 15):
+                self.camera.get_picture()
+                self.shoot_number = self.shoot_number + 1
+            if self.countdown_label.idx == (len(self.countdown_label.frames) - 3):
+                self.hue.set_on()
         
         if self.countdown_label.idx == (len(self.countdown_label.frames) - 1):  
             self.state = 'black'

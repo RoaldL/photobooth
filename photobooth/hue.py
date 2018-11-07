@@ -1,4 +1,5 @@
 from phue import Bridge
+import threading
 import random
 
 class HueController:
@@ -13,12 +14,42 @@ class HueController:
             print(light.brightness)
             print(light.xy)
 
-    def set_for_photo(self):
+        self.state = 'off'
+        self.on_off_toggle = False
+
+    def set_off(self):
+        self.stop_blink()
         for light in self.lights:
-            light.brightness = 254
+            light.on = False
+
+        self.state = 'off'
+
+    def set_on(self):
+        self.stop_blink()
+        for light in self.lights:
+            light.on = True
+            light.brightness = 254#254
             light.xy = [0.4578, 0.41]
 
-    def set_for_wait(self):
-        for light in self.lights:
-            light.brightness = 1
-            light.xy = [random.random(),random.random()]
+        self.state = 'photo'
+
+    def start_blink(self):
+        self.keep_blinking = True
+        self.blink_thread = threading.Thread(target=self._blink).start()
+
+    def stop_blink(self):
+        self.keep_blinking = False
+
+    def _blink(self):
+        print('blinkieblinkie')
+        while(self.keep_blinking):
+            for light in self.lights:
+                light.transitiontime = 1
+                light.brightness = 254
+                if self.on_off_toggle:
+                    light.on = True
+                else:
+                    light.on = False
+                self.on_off_toggle = not self.on_off_toggle
+
+                light.xy = [random.random(),random.random()]
