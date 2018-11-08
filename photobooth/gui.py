@@ -74,7 +74,7 @@ class GUI:
             self.reaction = GIF(self.frame, random.choice(funny_gifs), 150)
             self.reaction.pack()
 
-            self.master.after(3000, self.wait_for_camera)
+            self.master.after(4000, self.wait_for_camera)
 
     def watch_startbutton(self):
         if not self.button.get_status():
