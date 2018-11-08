@@ -60,7 +60,7 @@ class GUI:
             self.button.stop_blink()
             self.hue.start_blink()
 
-            self.countdown_label = GIF(self.frame, os.path.join(self.root, 'gif/countdown/countdown.gif'), 400)
+            self.countdown_label = GIF(self.frame, os.path.join(self.root, 'gif/countdown/countdown.gif'), 200)
             self.countdown_label.pack()
             self.photoshoot()
 
