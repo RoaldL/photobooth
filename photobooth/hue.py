@@ -42,9 +42,11 @@ class HueController:
         while(self.keep_blinking):
             for light in self.lights:
                 if self.on_off_toggle:
+                    light.transitiontime = 0
                     light.on = True
                     light.xy = [random.random(),random.random()]
                 else:
+                    light.transitiontime = 0
                     light.on = False
                 time.sleep(0.05)
                 self.on_off_toggle = not self.on_off_toggle
