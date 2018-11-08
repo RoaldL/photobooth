@@ -1,6 +1,7 @@
 from phue import Bridge
 import threading
 import random
+import time
 
 class HueController:
 
@@ -46,6 +47,7 @@ class HueController:
                     light.xy = [random.random(),random.random()]
                 else:
                     light.on = False
+                time.sleep(0.05)
                 self.on_off_toggle = not self.on_off_toggle
                 if not self.keep_blinking:
                     break
