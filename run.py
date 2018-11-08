@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     # Setup
     root = os.path.join(os.sep, 'home', 'pi', 'projects', 'photobooth')
-    path = os.path.join(root, 'images')
+    path = os.path.join(os.sep, 'media', 'pi', 'photobooth')
     
     camera = CameraController(path)
     button = ArcadeButton()
