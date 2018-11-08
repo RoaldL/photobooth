@@ -1,7 +1,7 @@
 from photobooth.camera import CameraController
 from photobooth.gui import GUI
 from photobooth.button import ArcadeButton
-from photobooth.hue import HueController
+from photobooth.hue import HueController, HueStubController
 
 import os
 import sys
@@ -15,7 +15,11 @@ if __name__ == "__main__":
     
     camera = CameraController(path)
     button = ArcadeButton()
-    hue = HueController()
+    
+    try:
+        hue = HueController()
+    except:
+        hue = HueStubController()
 
     # Run
     gui = Tk()

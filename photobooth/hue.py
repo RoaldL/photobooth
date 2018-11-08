@@ -39,7 +39,6 @@ class HueController:
         self.keep_blinking = False
 
     def _blink(self):
-        print('blinkieblinkie')
         while(self.keep_blinking):
             for light in self.lights:
                 if self.on_off_toggle:
@@ -51,3 +50,20 @@ class HueController:
                 self.on_off_toggle = not self.on_off_toggle
                 if not self.keep_blinking:
                     break
+
+class HueStubController:
+
+    def __init__(self):
+        print('hue - init')
+
+    def set_off(self):
+        print('hue - set off')
+
+    def set_on(self):
+        print('hue - set on')
+
+    def start_blink(self):
+        print('hue - start blink')
+
+    def stop_blink(self):
+        print('hue - stop blink')
